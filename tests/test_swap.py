@@ -61,14 +61,14 @@ def test_swap_exact_eth_for_token(backend, firmware, navigator, test_name, walle
     # send the transaction
     with client.sign(DERIVATION_PATH, tx_params):
         # Validate the on-screen request by performing the navigation appropriate for this device
-        if firmware.device.startswith("nano"):
+        if firmware.is_nano:
             navigator.navigate_until_text_and_compare(NavInsID.RIGHT_CLICK,
                                                       [NavInsID.BOTH_CLICK],
                                                       "Accept",
                                                       ROOT_SCREENSHOT_PATH,
                                                       test_name)
         else:
-            navigator.navigate_until_text_and_compare(NavInsID.USE_CASE_REVIEW_TAP,
+            navigator.navigate_until_text_and_compare(NavInsID.SWIPE_CENTER_TO_LEFT,
                                                       [NavInsID.USE_CASE_REVIEW_CONFIRM,
                                                        NavInsID.USE_CASE_STATUS_DISMISS],
                                                       "Hold to sign",
