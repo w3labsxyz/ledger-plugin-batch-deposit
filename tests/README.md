@@ -19,7 +19,6 @@ Compiling the plugin will produce the binary for the targeted device. They will 
 
 The binaries of the Ethereum application must be gathered and placed in the directory `tests/.test_dependencies/ethereum/`.
 Example of the correct file tree with Ethereum compiled for all targets.
-* `tests/.test_dependencies/ethereum/build/nanos/bin/app.elf`
 * `tests/.test_dependencies/ethereum/build/nanos2/bin/app.elf`
 * `tests/.test_dependencies/ethereum/build/nanox/bin/app.elf`
 * `tests/.test_dependencies/ethereum/build/stax/bin/app.elf`
