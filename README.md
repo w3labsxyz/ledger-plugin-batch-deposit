@@ -17,7 +17,7 @@ The code has been commented, and special "EDIT THIS" comments indicate where
 developers are expected to adapt the code to their own needs.
 
 It is STRONGLY recommended to follow the
-[plugin guide](https://developers.ledger.com/docs/dapp/embedded-plugin/code-overview/)
+[plugin guide](https://ethereum-plugin-sdk.ledger.com/)
 in order to better understand the flow and the context for plugins.
 
 ## Ethereum SDK

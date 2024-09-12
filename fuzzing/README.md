@@ -1,6 +1,7 @@
 # Fuzzing on transaction parser
 
-## Fuzzing
+[//]: # (Comment)
+[//]: # (This file when in the plugin-boilerplate repository is included in the Ethereum Plugin SDK Github page, keep that in mind when editing it.)
 
 Fuzzing allows us to test how a program behaves when provided with invalid, unexpected, or random data as input.
 
@@ -17,19 +18,19 @@ If the application crashes, or a [sanitizer](https://github.com/google/sanitizer
 Before being able to use the fuzzing tests, the environment must be prepared with all submodules.
 To install them, use the following command in the repository root directory:
 
-```console
+```shell
 git submodule update --init
 ```
 
 The fuzzer can run from the docker `ledger-app-builder-legacy`. You can download it from the `ghcr.io` docker repository:
 
-```console
+```shell
 sudo docker pull ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder-legacy:latest
 ```
 
 You can then enter this development environment by executing the following command from the repository root directory:
 
-```console
+```shell
 sudo docker run --rm -ti --user "$(id -u):$(id -g)" -v "$(realpath .):/app" ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder-legacy:latest
 ```
 
@@ -37,7 +38,7 @@ sudo docker run --rm -ti --user "$(id -u):$(id -g)" -v "$(realpath .):/app" ghcr
 
 Once in the container, go into the `fuzzing` folder to compile the fuzzer:
 
-```console
+```shell
 cd fuzzing
 
 # cmake initialization
@@ -49,7 +50,7 @@ make -C build
 
 ### Run
 
-```console
+```shell
 ./build/fuzz
 ```
 
@@ -66,7 +67,7 @@ The principle is to build the container, and run it to perform the fuzzing.
 
 > **Note**: The container contains a copy of the sources (they are not cloned), which means the `docker build` command must be re-executed after each code modification.
 
-```console
+```shell
 # Prepare directory tree
 mkdir fuzzing/{corpus,out}
 # Container generation
@@ -75,12 +76,12 @@ docker build -t app-plugin-boilerplate --file .clusterfuzzlite/Dockerfile .
 
 ### Compilation
 
-```console
+```shell
 docker run --rm --privileged -e FUZZING_LANGUAGE=c -v "$(realpath .)/fuzzing/out:/out" -ti app-plugin-boilerplate
 ```
 
 ### Run
 
-```console
+```shell
 docker run --rm --privileged -e FUZZING_ENGINE=libfuzzer -e RUN_FUZZER_MODE=interactive -v "$(realpath .)/fuzzing/corpus:/tmp/fuzz_corpus" -v "$(realpath .)/fuzzing/out:/out" -ti gcr.io/oss-fuzz-base/base-runner run_fuzzer fuzz
 ```
