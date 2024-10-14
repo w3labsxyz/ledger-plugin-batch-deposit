@@ -4,3 +4,6 @@
 [submodule "tests/.test_dependencies/ethereum"]
 	path = tests/.test_dependencies/ethereum
 	url = https://github.com/LedgerHQ/app-ethereum
+[submodule "speculos"]
+	path = speculos
+	url = https://github.com/LedgerHQ/speculos
