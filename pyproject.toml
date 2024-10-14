@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "ledger-plugin-batch-deposit"
+version = "0.1.0"
+description = "Development environment dependencies for the Ledger plugin batch deposit"
+authors = ["w3.labs GmbH"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^8.3.3"
+ledger-app-clients-ethereum = "^0.4.0"
+ragger = { version = "^1.24.0", extras = ["speculos", "ledgercomm"] }

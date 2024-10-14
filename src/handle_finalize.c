@@ -5,17 +5,11 @@ void handle_finalize(ethPluginFinalize_t *msg) {
 
     msg->uiType = ETH_UI_TYPE_GENERIC;
 
-    // EDIT THIS: Set the total number of screen you will need.
-    msg->numScreens = 2;
-    // EDIT THIS: Handle this case like you wish to (i.e. maybe no additional screen needed?).
-    // If the beneficiary is NOT the sender, we will need an additional screen to display it.
-    if (memcmp(msg->address, context->beneficiary, ADDRESS_LENGTH) != 0) {
-        msg->numScreens += 1;
-    }
+    msg->numScreens = 0;
 
-    // EDIT THIS: set `tokenLookup1` (and maybe `tokenLookup2`) to point to
-    // token addresses you will info for (such as decimals, ticker...).
-    msg->tokenLookup1 = context->token_received;
+    if (context->selectorIndex == BATCH_DEPOSIT) {
+        msg->numScreens = 3;
+    }
 
     msg->result = ETH_PLUGIN_RESULT_OK;
 }

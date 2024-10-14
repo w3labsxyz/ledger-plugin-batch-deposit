@@ -1,7 +1,7 @@
 #include "plugin.h"
 
 // EDIT THIS: Remove this function and write your own handlers!
-static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg, context_t *context) {
+static void handle_batch_deposit(ethPluginProvideParameter_t *msg, context_t *context) {
     if (context->go_to_offset) {
         if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
             return;
@@ -9,28 +9,21 @@ static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg, c
         context->go_to_offset = false;
     }
     switch (context->next_param) {
-        case MIN_AMOUNT_RECEIVED:  // amountOutMin
-            copy_parameter(context->amount_received,
-                           msg->parameter,
-                           sizeof(context->amount_received));
-            context->next_param = PATH_OFFSET;
+        case WITHDRAWAL_ADDRESS:
+            copy_address(context->withdrawal_address,
+                         msg->parameter,
+                         sizeof(context->withdrawal_address));
+            context->next_param = PUBKEYS;
             break;
-        case PATH_OFFSET:  // path
-            context->offset = U2BE(msg->parameter, PARAMETER_LENGTH - 2);
-            context->next_param = BENEFICIARY;
+        case PUBKEYS:
+            // story number of pubkeys in context
+            context->number_of_validators = U4BE(msg->parameter, 0);
+            context->next_param = SIGNATURES;
             break;
-        case BENEFICIARY:  // to
-            copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
-            context->next_param = PATH_LENGTH;
-            context->go_to_offset = true;
+        case SIGNATURES:
+            context->next_param = DEPOSIT_DATA_ROOTS;
             break;
-        case PATH_LENGTH:
-            context->offset = msg->parameterOffset - SELECTOR_SIZE + PARAMETER_LENGTH * 2;
-            context->go_to_offset = true;
-            context->next_param = TOKEN_RECEIVED;
-            break;
-        case TOKEN_RECEIVED:  // path[1] -> contract address of token received
-            copy_address(context->token_received, msg->parameter, sizeof(context->token_received));
+        case DEPOSIT_DATA_ROOTS:
             context->next_param = UNEXPECTED_PARAMETER;
             break;
         // Keep this
@@ -53,12 +46,9 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     msg->result = ETH_PLUGIN_RESULT_OK;
 
-    // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case SWAP_EXACT_ETH_FOR_TOKENS:
-            handle_swap_exact_eth_for_tokens(msg, context);
-            break;
-        case BOILERPLATE_DUMMY_2:
+        case BATCH_DEPOSIT:
+            handle_batch_deposit(msg, context);
             break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

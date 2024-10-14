@@ -15,8 +15,8 @@
 #   limitations under the License.
 # ****************************************************************************
 
-# EDIT THIS: Application name
-APPNAME = "PluginBoilerplate"
+# Plugin name
+APPNAME = "BatchDeposit"
 
 # Application version
 APPVERSION_M = 1

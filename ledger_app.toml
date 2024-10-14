@@ -1,16 +1,20 @@
 [app]
 build_directory = "./"
 sdk = "C"
-devices = ["nanox", "nanos+", "stax", "flex"]
+devices = ["nanos", "nanox", "nanos+", "stax", "flex"]
+
+[use_cases]
+debug = "DEBUG=1"
+test = "DEBUG=1"
 
 [tests]
 pytest_directory = "./tests/"
 
 [tests.dependencies]
 testing_with_latest = [
-    {url = "https://github.com/LedgerHQ/app-ethereum", ref = "develop", use_case = "use_test_keys"},
+    { url = "https://github.com/LedgerHQ/app-ethereum", ref = "develop", use_case = "use_test_keys" },
 ]
 
 testing_with_prod = [
-    {url = "https://github.com/LedgerHQ/app-ethereum", ref = "master", use_case = "use_test_keys"},
+    { url = "https://github.com/LedgerHQ/app-ethereum", ref = "master", use_case = "use_test_keys" },
 ]

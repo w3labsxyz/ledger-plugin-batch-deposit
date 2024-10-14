@@ -21,13 +21,12 @@
 #include "eth_plugin_interface.h"
 
 // All possible selectors of your plugin.
-// EDIT THIS: Enter your selectors here, in the format X(NAME, value)
+// The selectors used here can be verified in the smart contract code:
+// - https://etherscan.io/address/0x8fc32441c13706bb981a506fde65dedd5def3981#writeContract
 // A Xmacro below will create for you:
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
-#define SELECTORS_LIST(X)                    \
-    X(SWAP_EXACT_ETH_FOR_TOKENS, 0x7ff36ab5) \
-    X(BOILERPLATE_DUMMY_2, 0x13374242)
+#define SELECTORS_LIST(X) X(BATCH_DEPOSIT, 0xedc06875)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -46,27 +45,19 @@ typedef enum selector_e {
 extern const uint32_t SELECTORS[SELECTOR_COUNT];
 
 // Enumeration used to parse the smart contract data.
-// EDIT THIS: Adapt the parameter names here.
 typedef enum {
-    MIN_AMOUNT_RECEIVED = 0,
-    TOKEN_RECEIVED,
-    BENEFICIARY,
-    PATH_OFFSET,
-    PATH_LENGTH,
+    WITHDRAWAL_ADDRESS = 0,
+    PUBKEYS,
+    SIGNATURES,
+    DEPOSIT_DATA_ROOTS,
     UNEXPECTED_PARAMETER,
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
-// EDIT THIS: This struct is used by your plugin to save the parameters you parse. You
-// will need to adapt this struct to your plugin.
 typedef struct context_s {
     // For display.
-    uint8_t amount_received[INT256_LENGTH];
-    uint8_t beneficiary[ADDRESS_LENGTH];
-    uint8_t token_received[ADDRESS_LENGTH];
-    char ticker[MAX_TICKER_LEN];
-    uint8_t decimals;
-    uint8_t token_found;
+    uint8_t withdrawal_address[ADDRESS_LENGTH];
+    uint8_t number_of_validators;
 
     // For parsing data.
     uint8_t next_param;  // Set to be the next param we expect to parse.

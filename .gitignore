@@ -3,7 +3,6 @@
 /debug/
 /build/
 
-
 # Editors
 .idea/
 .vscode
@@ -20,15 +19,11 @@ __pycache__/
 *.egg-info/
 .eggs/
 .python-version
+.venv
 
 # Virtual env for sideload (macOS and Windows)
 ledger/
 
 # Temporary directory with snapshots taken during test runs
 tests/snapshots-tmp/
-
-# Directory storing the ethereum build output for tests run
-tests/.test_dependencies/*
-!tests/.test_dependencies/ethereum/
-tests/.test_dependencies/ethereum/*
-!tests/.test_dependencies/ethereum/.ethereum_application_build_goes_there
+tests/.test_dependencies/plugin

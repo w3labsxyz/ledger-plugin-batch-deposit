@@ -1,24 +1,22 @@
 # Technical Specification
 
-> **Warning**
-This documentation is a template and shall be updated.
-
 ## About
 
-This documentation describes the smart contracts and functions supported by the boilerplate plugin.
+This plugin is a convenience wrapper for the smart contracts of w3.labs.
 
 ## Smart Contracts
 
-Smart contracts covered by the plugin shall be described here:
+The smart contracts covered by the plugin are the following:
 
-|  Network | Version | Smart Contract | Address |
-|   ----   |   ---   |      ----      |   ---   |
-| NetworkName   | VX  | ContractName  | `0x0000000000000000000000000000000000000000` |
+| Network | Version | Smart Contract | Address                                      |
+| ------- | ------- | -------------- | -------------------------------------------- |
+| Mainnet | V1      | BatchDeposit   | `0x8fC32441C13706bB981A506FdE65DeDD5dEF3981` |
+| Holesky | V1      | BatchDeposit   | `0xf079e540F598a85C22dA6eb570236B2169bE4962` |
 
 ## Functions
 
-For the smart contracts implemented, the functions covered by the plugin shall be described here:
+The functions exposed by the smart contracts above that are covered by this plugin are:
 
-|Contract |    Function   | Selector  | Displayed Parameters |
-|   ---   |    ---        | ---       | --- |
-|ContractName  | FunctionName           | `0x00000000`| <table><tbody> <tr><td><code>type ParameterName</code></td></tr> </tbody></table> |
+| Contract     | Function     | Selector     | Displayed Parameters                                                                     |
+| ------------ | ------------ | ------------ | ---------------------------------------------------------------------------------------- |
+| BatchDeposit | batchDeposit | `0xedc06875` | <table><tbody> <tr><td><code>address withdrawalAddress</code></td></tr> </tbody></table> |
